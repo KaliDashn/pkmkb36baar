@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deface Page</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            overflow: hidden;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+        img {
+            max-width: 50%;
+            height: auto;
+        }
+        .bubble-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 2;
+        }
+        .bubble-text {
+            position: absolute;
+            font-size: 26px;
+            font-weight: 900;
+            text-transform: uppercase;
+            animation: bubbleUp linear forwards;
+            white-space: nowrap;
+            text-shadow: 2px 2px 4px #000;
+        }
+        /* Tricolor */
+        .bubble-text.indian span:nth-child(3n+1),
+        .bubble-text.hacked span:nth-child(3n+1),
+        .bubble-text.blackeye span:nth-child(3n+1),
+        .bubble-text.cryptic span:nth-child(3n+1),
+        .bubble-text.indix span:nth-child(3n+1),
+        .bubble-text.reverse span:nth-child(3n+1),
+        .bubble-text.ghost span:nth-child(3n+1) {
+            color: #FF9933;
+        }
+        .bubble-text.indian span:nth-child(3n+2),
+        .bubble-text.hacked span:nth-child(3n+2),
+        .bubble-text.blackeye span:nth-child(3n+2),
+        .bubble-text.cryptic span:nth-child(3n+2),
+        .bubble-text.indix span:nth-child(3n+2),
+        .bubble-text.reverse span:nth-child(3n+2),
+        .bubble-text.ghost span:nth-child(3n+2) {
+            color: #FFFFFF;
+        }
+        .bubble-text.indian span:nth-child(3n+3),
+        .bubble-text.hacked span:nth-child(3n+3),
+        .bubble-text.blackeye span:nth-child(3n+3),
+        .bubble-text.cryptic span:nth-child(3n+3),
+        .bubble-text.indix span:nth-child(3n+3),
+        .bubble-text.reverse span:nth-child(3n+3),
+        .bubble-text.ghost span:nth-child(3n+3) {
+            color: #138808;
+        }
+        /* Single-color styles */
+        .bubble-text.solveig { color: #FF0000; }
+        .bubble-text.odiyan { color: #00FF00; }
+        .bubble-text.jai-hind { color: #00B7EB; }
+        .bubble-text.shiru { color: #9b59b6; }
+        .bubble-text.exploit404 { color: #ff1a1a; }
+        .bubble-text.cybercrush { color: #00ffff; }
+
+        @keyframes bubbleUp {
+            0% { transform: translateX(-100%); opacity: 1; }
+            100% { transform: translateX(100vw); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="https://totalreporter.com/wp-content/uploads/2023/08/Indian-Flag-GIF.gif" alt="Indian Flag">
+    </div>
+
+    <div class="bubble-layer"></div>
+
+    <script>
+        const phrases = [
+            "Jai Hind",
+            "Indian",
+            "Odiyan",
+            "Solveig",
+            "Hacked by 7 Proxies India",
+            "Blackeye",
+            "Cryptic",
+            "Indix",
+            "Reverse",
+            "GHOST",
+            "Shiru",
+            "Exploit 404",
+            "Cyber Crush"
+        ];
+
+        function createBubble() {
+            const text = document.createElement("div");
+            text.className = "bubble-text";
+            const selectedPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+
+            if (["Indian", "Hacked by 7 Proxies India", "Blackeye", "Cryptic", "Indix", "Reverse", "GHOST"].includes(selectedPhrase)) {
+                text.classList.add(selectedPhrase === "Indian" ? "indian" :
+                                   selectedPhrase === "Hacked by 7 Proxies India" ? "hacked" :
+                                   selectedPhrase === "Blackeye" ? "blackeye" :
+                                   selectedPhrase === "Cryptic" ? "cryptic" :
+                                   selectedPhrase === "Indix" ? "indix" :
+                                   selectedPhrase === "Reverse" ? "reverse" : "ghost");
+                text.innerHTML = selectedPhrase.split("").map(char => `<span>${char}</span>`).join("");
+            } 
+            else if (selectedPhrase === "Solveig") {
+                text.classList.add("solveig");
+                text.textContent = selectedPhrase;
+            } 
+            else if (selectedPhrase === "Odiyan") {
+                text.classList.add("odiyan");
+                text.textContent = selectedPhrase;
+            }
+            else if (selectedPhrase === "Shiru") {
+                text.classList.add("shiru");
+                text.textContent = selectedPhrase;
+            }
+            else if (selectedPhrase === "Exploit 404") {
+                text.classList.add("exploit404");
+                text.textContent = selectedPhrase;
+            }
+            else if (selectedPhrase === "Cyber Crush") {
+                text.classList.add("cybercrush");
+                text.textContent = selectedPhrase;
+            }
+            else {
+                text.classList.add("jai-hind");
+                text.textContent = selectedPhrase;
+            }
+
+            text.style.top = `${Math.random() * window.innerHeight}px`;
+            text.style.left = `-100px`;
+            text.style.animationDuration = `${40 + Math.random() * 4}s`;
+            text.style.animationDelay = "0s";
+
+            document.querySelector(".bubble-layer").appendChild(text);
+
+            text.addEventListener("animationend", () => {
+                text.remove();
+            });
+        }
+
+        setInterval(createBubble, 300);
+    </script>
+</body>
+</html>
